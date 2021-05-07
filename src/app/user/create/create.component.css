@@ -1,0 +1,13 @@
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
+
+p {
+  font-family: Lato;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+label {
+  margin-left: 8px;
+}
