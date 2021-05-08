@@ -5,6 +5,12 @@ import { Injectable } from '@angular/core';
 })
 export class ServiceService {
 
-  list: any
-  constructor() { }
+  list: any=[]
+  constructor() { 
+    console.log("Start list Data:", this.list)
+  }
+
+  pushData(data: any){
+    this.list.push(data)
+  }
 }

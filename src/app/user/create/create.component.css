@@ -11,3 +11,7 @@ input.ng-invalid.ng-touched {
 label {
   margin-left: 8px;
 }
+
+.modal.show {
+  display: block;
+}

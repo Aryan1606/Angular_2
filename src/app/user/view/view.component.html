@@ -1,7 +1,7 @@
 <!-- <p>view works!</p> -->
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <a class="navbar-brand" routerLink="">Create</a>
     <a class="navbar-brand" routerLink="view"> View </a>
 </nav>
@@ -9,7 +9,41 @@
 <br>
 <br>
 <h1><div class="text-center">
-    User Details..
+   <u> User Details..</u>
 </div></h1>
+
+<br>
+
+<div class="row">
+    <div class="col-lg-10 offset-lg-1">
+      <table class="table table-bordered">
+        <tr>
+          <th>Name</th>
+          <th>E-Mail</th>
+          <th>Gender</th>
+          <th>Mobile</th>
+          <th>Technology</th>
+          <th>Technologies</th>
+          <th>Profile Pic</th>
+        </tr>
+        <tr *ngFor="let item of data; index as i">
+          <td>{{item.username}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.gender}}</td>
+          <td>{{item.mobile}}</td>
+          <td>{{item.category}}</td>
+          <td >
+          <small style="font-size: 18px;" *ngIf="item.myCheckboxGroup.myCheckbox1">C</small>
+          <small style="font-size: 18px;" *ngIf="item.myCheckboxGroup.myCheckbox2">JAVA</small>
+          <small style="font-size: 18px;" *ngIf="item.myCheckboxGroup.myCheckbox3">Python</small>
+          <small style="font-size: 18px;" *ngIf="item.myCheckboxGroup.myCheckbox4">JS</small>
+          </td>
+          <!-- <td>{{item.imageUrl}}</td> -->
+          <td ><img width="100%" *ngIf="true" [src]="item.imageUrl" class="image" style="width: 65px;"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
 
 <router-outlet></router-outlet>

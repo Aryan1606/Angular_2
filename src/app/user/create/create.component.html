@@ -1,68 +1,69 @@
-<!-- <p>create works!</p> -->
-
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" routerLink="">Create</a>
-    <a class="navbar-brand" routerLink="view"> View</a>
+    <a class="navbar-brand" routerLink="view"  > View</a>
 </nav>
-
 
 <div class="container">
     <div class="row">
         <div class="col-md-6" offset-md-3>
           <br><br>
-            <form [formGroup]="signupForm"  (ngSubmit)="onSubmit($event)" >
+          <u><h1>Enter the details</h1></u>
+          <br><br>
+            <form [formGroup]="signupForm" >
               <div id="user-data">
                   <div class="form-group">
                     <label for="username"> <b>Name:</b>  </label>
                     <input 
-                    type="text" 
-                    class="form-control" 
-                    name ="username" 
-                    id="username" 
-                    formControlName="username"
-                    required>
+                      type="text" 
+                      class="form-control" 
+                      name ="username" 
+                      id="username" 
+                      formControlName="username"
+                      required>
                     <span class="help-block" *ngIf="signupForm.get('username')?.hasError('pattern') && signupForm.get('username')?.touched">Incorrect Name</span>
                     <span class="help-block" *ngIf="signupForm.get('username')?.hasError('minlength') && signupForm.get('username')?.touched">Minimum Length should be 4 character</span>
                     <span class="help-block" *ngIf="signupForm.get('username')?.hasError('maxlength') && signupForm.get('username')?.touched">Maximum length should be 30 character</span>
                     <span class="help-block" *ngIf="signupForm.get('username')?.hasError('required') && signupForm.get('username')?.touched">Please enter Name</span>
                   </div>
                   <br>
-
-                  <label for="gender"><b>Gender:</b>  </label>
-                  <div class="radio" *ngFor="let gender of genders">
-                    <label>
-                      <input type="radio" 
-                      [value]="gender"
-
-                      formControlName = "gender">
-                      {{gender}}
-                    </label>
+                  
+                  <div class="form-group">
+                    <label for="gender"><b>Gender:</b>  </label>
+                    <div class="radio" *ngFor="let g of genderArray" style="margin-left: 10px;">
+                        <input type="radio" 
+                          [value]="g"
+                          id="gender"
+                          name="gender"
+                          formControlName = "gender">  {{g}}      
+                    </div>
+                    <span class="help-block" *ngIf="signupForm.get('gender')?.hasError('required') "  style="margin-bottom: 50px;"><small> *Please select any gender</small></span>
+                    <br>
                   </div>
-                  <br>
+                 
 
                   <div class="form-group">
                     <label for="email"><b>E-Mail:</b>   </label>
                     <input 
-                    type="text"
-                    class="form-control" 
-                    name ="email" 
-                    id="email" 
-                    formControlName="email"
-                    required> 
-                    <span class="help-block" *ngIf="!signupForm.get('email')?.valid && signupForm.get('email')?.touched">Incorrect E-Mail</span> 
+                      type="text"
+                      class="form-control" 
+                      name ="email" 
+                      id="email" 
+                      formControlName="email"
+                      required> 
+                    <span class="help-block" *ngIf="signupForm.get('email')?.hasError('pattern') && signupForm.get('email')?.touched">Incorrect E-Mail</span> 
                   </div>
+                  <br>
                   <br>
 
                   <div class="form-group">
                     <label for="mobile"><b>Mobile Number:</b>   </label>
                     <input 
-                    type="text"
-                    class="form-control" 
-                    name ="mobile" 
-                    id="mobile" 
-                    formControlName="mobile"
-                    required>  
+                      type="text"
+                      class="form-control" 
+                      name ="mobile" 
+                      id="mobile" 
+                      formControlName="mobile"
+                      required>  
                     <span class="help-block" *ngIf="signupForm.get('mobile')?.hasError('pattern') && signupForm.get('mobile')?.touched">Invalid Number </span>
                     <span class="help-block" *ngIf="signupForm.get('mobile')?.hasError('minlength') && signupForm.get('mobile')?.touched">Mobile Number should be of 10 digits </span>
                     <span class="help-block" *ngIf="signupForm.get('mobile')?.hasError('maxlength') && signupForm.get('mobile')?.touched">Mobile Number should be of 10 digits </span>
@@ -70,40 +71,44 @@
                   <br>
 
                   <div class="form-group">
-                    <label for="category"><b>Select</b></label>
+                    <label for="category"><b>Select*</b></label>
                     <select class="custom-select"    
-                    formControlName="category"
-                    id="category">
-                        <option value="">Choose Category</option>
+                      formControlName="category"
+                      id="category">
+                        <option value="">Choose Category*</option>
                         <option *ngFor="let item of list" >{{item}}</option>
                     </select>
-                    <span class="help-block" *ngIf="!signupForm.get('category')?.valid && signupForm.get('category')?.touched">Select a category</span>
+                    <span class="help-block" *ngIf="!signupForm.get('category')?.valid && signupForm.get('category')?.touched">Select a category  !!!</span>
                   </div> 
                   <br>
                   
                   <div class="form-group">
-                    <div class="form-group" formGroupName="myCheckboxGroup">
-                      <b><div class="label">Check at least one checkbox <span class="highlight">*</span></div></b>
+                    <div class="form-group" formGroupName="myCheckboxGroup" style="margin-left: 10px;">
+                      <b><div class="label" >Check at least one * <span class="highlight">*</span></div></b>
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" formControlName="myCheckbox1" id="myCheckbox1">
-                        <label class="custom-control-label" for="myCheckbox1">Happy</label>
+                        <label class="custom-control-label" for="myCheckbox1">C</label>
                       </div>
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" formControlName="myCheckbox2" id="myCheckbox2">
-                        <label class="custom-control-label" for="myCheckbox2">Grouped</label>
+                        <label class="custom-control-label" for="myCheckbox2">Java</label>
                       </div>
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" formControlName="myCheckbox3" id="myCheckbox3">
-                        <label class="custom-control-label" for="myCheckbox3">Checkboxes</label>
+                        <label class="custom-control-label" for="myCheckbox3">Python</label>
                       </div>
-                
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" formControlName="myCheckbox4" id="myCheckbox4">
+                        <label class="custom-control-label" for="myCheckbox4">JS</label>
+                      </div>
                       <div class="invalid-feedback" *ngIf="signupForm.controls['myCheckboxGroup'].errors && signupForm.controls['myCheckboxGroup'].errors.requireOneCheckboxToBeChecked">At least one checkbox is required to be checked</div>
                     </div>
                     <!-- <span class="help-block" *ngIf="!signupForm.get('language')?.valid && signupForm.get('language')?.touched">Select atleast 1</span> -->
                   </div>
 
                   <div class="form-group">
-                    <b><label for="file">File</label></b>
+                    <b><label for="file">Profile Pic File</label></b>
+                    <b><div class="label"><small style="margin-left:10px">*Only jpg/jpeg/png </small><span class="highlight">*</span></div></b>
                     <input 
                         formControlName="file"
                         id="file" 
@@ -111,23 +116,73 @@
                         accept=".png, .jpg, .jpeg"
                         #fileInput
                         class="form-control"
-                        (change)="onFileChange($event)">  
+                        (input)="onFileChange($event)"
+                        value=""> 
+                    <!-- <img width="100%" *ngIf="imageUrl" [src]="imageUrl" class="image" style="width: 50px;">   -->
                   </div>  
-        
                 </div>
+
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid" > Preview</button>
-                    <button type="reset" class="btn btn-danger" (click)="onReset()" style="margin-left: 10px;"> Reset</button>
+                    <!-- Preview Button -->
+                    <button type="button" class="btn btn-primary btn-lg" [disabled]="!signupForm.valid" data-toggle="modal" data-target="#exampleModal" (click)="modalFunc()">
+                      Preview
+                    </button>
+                    <button type="reset" class="btn btn-danger btn-lg" (click)="onReset()" style="margin-left: 10px;"> Reset</button>
                     <br>
                     <br>
-                    <br>
-                    
+                    <br>  
                 </div>
             </form>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" [ngClass]="{'show':showModal}">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="showModal=false">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <!-- Modal Body Start -->
+                        <div class="modal-body" style="font-size: larger;">
+                          <div style="float: left;">
+                            Name: <br>
+                            E-Mail: <br>
+                            Gender: <br>
+                            Mobile: <br>
+                            Category: <br>
+                            Technology: <br>
+                            Image File: <br>
+                          </div>
+                          <div style="float: right;">
+                            {{this.signupForm.get('username')?.value}} <br>
+                            {{this.signupForm.get('email')?.value}} <br>
+                            {{this.signupForm.get('gender')?.value}} <br>
+                            {{this.signupForm.get('mobile')?.value}} <br>
+                            {{this.signupForm.get('category')?.value}} <br>
+                            <strong  *ngIf="this.signupForm.get('myCheckboxGroup')?.value.myCheckbox1">C ,</strong> 
+                            <strong  *ngIf="this.signupForm.get('myCheckboxGroup')?.value.myCheckbox2"> JAVA, </strong> 
+                            <strong *ngIf="this.signupForm.get('myCheckboxGroup')?.value.myCheckbox3"> Python, </strong> 
+                            <strong  *ngIf="this.signupForm.get('myCheckboxGroup')?.value.myCheckbox4"> JS, </strong> <br>
+                            <!-- {{this.signupForm.get('file')?.value}} <br> -->
+                            <img width="100%" *ngIf="imageUrl" [src]="imageUrl" class="image" style="width: 70px;"> <br>
+                            <br>
+                            <br><br><br>
+                          </div>
+                        </div>
+                        <!-- Modal Body Ended -->
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal" (click)="showModal=false">Cancel</button>
+                          <button type="button" class="btn btn-primary btn-lg" (click)="onSubmit($event)">Submit</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+            <br><br>
           </div>
      </div>
   </div>
-      
-
 <router-outlet></router-outlet>
 

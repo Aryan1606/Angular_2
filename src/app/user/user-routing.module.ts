@@ -13,18 +13,18 @@ const routes: Routes = [
   {
     path: 'users/view', component: ViewComponent
   },
-  {
-    path:'viewform', redirectTo: 'users/viewform', pathMatch: 'full'
-  },
-  {
-    path: 'users/viewform', component: ViewFormComponent
-  },
-  {
-    path:'users/create/viewform', redirectTo: 'users/viewform', pathMatch: 'full'
-  },
-  {
-    path: 'users/viewform', component: ViewFormComponent
-  },
+  // {
+  //   path:'viewform', redirectTo: 'users/viewform', pathMatch: 'full'
+  // },
+  // {
+  //   path: 'users/viewform', component: ViewFormComponent
+  // },
+  // {
+  //   path:'users/create/viewform', redirectTo: 'users/viewform', pathMatch: 'full'
+  // },
+  // {
+  //   path: 'users/viewform', component: ViewFormComponent
+  // },
   { 
     path:'', redirectTo: 'users/create', pathMatch: 'full'
   },

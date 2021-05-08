@@ -1,8 +1,8 @@
 import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
 import {FormGroup,FormControl,Validators,FormArray, FormBuilder, ValidatorFn} from '@angular/forms';
-import { Router, NavigationExtras } from '@angular/router';
-import { ViewFormComponent} from '../view-form/view-form.component'
+import { Router } from '@angular/router';
 import {requireCheckboxesToBeCheckedValidator} from './require-checkboxes-to-be-checked.validator';
+import { ServiceService } from '../../service.service'
 
 @Component({
   selector: 'app-create',
@@ -11,14 +11,28 @@ import {requireCheckboxesToBeCheckedValidator} from './require-checkboxes-to-be-
 })
 export class CreateComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private router: Router) { 
+  constructor(private fb: FormBuilder, private router: Router, private service: ServiceService) { 
   }
-  genders=['Male','Female'];
+  //Gender Array
+  genderArray=['Male','Female'];
+
+  //Category Array
   list:any = ['General','SC', 'ST', 'OBC']
-  items: FormArray
-  
+
+  // Form Object
   signupForm:FormGroup;
-  abc:any
+
+  // Data object to store details of every user
+  DataUser:any
+
+  // Boolean to toggle the Modal View
+  showModal: boolean=false
+
+  // Variable to store the profile image file selected by the user
+  fileData:any
+  // URL variable for rendering the profile image on the screen
+  imageUrl: any
+
   ngOnInit(){
     this.signupForm=new FormGroup({
       username: new FormControl('', Validators.compose([
@@ -29,11 +43,12 @@ export class CreateComponent implements OnInit {
         
       ]) ),
       email:new FormControl('', Validators.compose([
+        Validators.pattern(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/),
         Validators.required,
-        Validators.email
-        // Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+        Validators.email,
+        
       ])),
-      gender: new FormControl('female', Validators.compose([
+      gender: new FormControl('', Validators.compose([
         Validators.required
       ])),
       mobile: new FormControl('', Validators.compose([
@@ -50,30 +65,37 @@ export class CreateComponent implements OnInit {
         myCheckbox1: new FormControl(false),
         myCheckbox2: new FormControl(false),
         myCheckbox3: new FormControl(false),
+        myCheckbox4: new FormControl(false),
       }, requireCheckboxesToBeCheckedValidator()),
-      // , requireCheckboxesToBeCheckedValidator()
     })
   }
+
   onFileChange(event:any) {
     if (event.target.files.length > 0) {
-      const file2 = event.target.files[0];
-      this.signupForm.patchValue({
-        file: file2
-      });
+      this.fileData = event.target.files[0];
+      if (this.fileData.type == 'jpg/png/jpeg' || this.fileData.type == 'image/png' ||this.fileData.type == 'image/jpg' || this.fileData.type == 'image/jpeg') {
+        let reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.imageUrl = event.target.result;
+        };
+        reader.readAsDataURL(this.fileData);
+      } 
+      else {
+        alert("File type should be only of either JPG/JPEG/PNG: ")
+        return;
+      }
     }
   }
 
+  modalFunc(){
+    this.showModal=true 
+  }
+
   onSubmit(event: Event){
-    console.log("Form Create: ", this.signupForm, this.signupForm.value.file)
-    this.router.navigateByUrl('viewform',  { state: {
-      username:this.signupForm.value.username,
-      email: this.signupForm.value.email,
-      gender:this.signupForm.value.gender,
-      mobile: this.signupForm.value.mobile,
-      category: this.signupForm.value.category,
-      file: this.signupForm.value.file,
-      myCheckboxGroup: this.signupForm.value.myCheckboxGroup
-    }})
+    this.DataUser=this.signupForm.value
+    this.DataUser.imageUrl=this.imageUrl
+    this.service.pushData(this.DataUser)
+    this.router.navigateByUrl('users/view',  )
   }
 
   onReset(){
