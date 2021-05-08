@@ -1,7 +1,5 @@
 # Assignment2
 
-# Assignment1
-
 Running Demo
 --------------------------
 Follow these steps to run the app on your local machine
